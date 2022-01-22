@@ -3,3 +3,7 @@
   width: 100vw;
   background-image: linear-gradient( to left, #28062b , rgb(11, 26, 49));
 }
+
+* ::-webkit-scrollbar{
+    display: none;
+}

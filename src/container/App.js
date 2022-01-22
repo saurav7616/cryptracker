@@ -1,28 +1,33 @@
 import React,{ Component } from 'react';
-import CoinCard from '../components/coinCard/CoinCard';
+import CardArr from '../components/cardArr/CardArr';
 import Nav from '../components/nav/Nav';
 import './App.css';
 
 
 class App extends Component{
+  constructor(){
+		super()
+		this.state = {
+			data: [],
+		}
+	}
   isopen=false;
-  async componentDidMount(){
-    await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
-      .then(res =>{
-        console.log(res.json())
-      })
-      .then(data => {
-        console.log(data,'data')
-      })
-      .catch(err =>{
-        console.log(err)
-      });
+  componentDidMount(){
+    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+      .then(res => res.json())
+      .then(data => this.setState({data : data}))
+      .catch(err => console.log(err));
   }
   render(){
-    return (
+    const {data} = this.state;
+    return(
       <div className="App ma0 pa0">
         <Nav/>
-        <CoinCard/>
+        {
+          data.length>0?
+            <CardArr rec={data}/>:
+            <h1 className='tc mt5 pt5'>LOADING...</h1>
+        }
       </div>
     );
   }
