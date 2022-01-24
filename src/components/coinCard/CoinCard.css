@@ -1,0 +1,12 @@
+.card_grid{
+    width: 97%;
+    display: inline-grid;
+    grid-template-columns: repeat(6,1fr);
+    justify-items: flex-end;
+}
+
+.name_flex{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

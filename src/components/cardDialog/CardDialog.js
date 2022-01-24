@@ -7,40 +7,25 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 export default function CardDialog(props){
-    const { onClose,open } = props;
-  
+    const { onClose,open, coin } = props;
+    let timeSeries=[];
     const handleClose = () => {
       onClose();
     };
-    const price=400000;
-    const data = [
-        {
-            name: 'Page A', 
-            uv: 400, 
-            pv: 2400, 
-            amt: 2400
-        },
-        {
-            name: 'Page B', 
-            uv: 300, 
-            pv: 2400, 
-            amt: 2400
-        },
-        {
-            name: 'Page C', 
-            uv: 400, 
-            pv: 2400, 
-            amt: 2400
-        },
-        {
-            name: 'Page D', 
-            uv: 100, 
-            pv: 2400, 
-            amt: 2400
-        },
-    ];
+    fetch(`https://api.coingecko.com/api/v3/coins/${coin.data.id}/market_chart?vs_currency=usd&days=7&interval=daily`)
+      .then(res => res.json())
+      .then(data => {
+        data.prices.map((ele)=>{
+          timeSeries.push({ p : ele[1]})
+        })
+        console.log(data,'ts')
+    });
+    console.log(timeSeries,'ts2')
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    function currencyFormat(num){
+        return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
     return (
       <Dialog 
         onClose={handleClose} 
@@ -50,33 +35,39 @@ export default function CardDialog(props){
         maxWidth={'md'}
     >
         <DialogTitle>
-            <img src="" alt="logo"/>
-            <span>Bitcoin </span>
-            <i>BTC</i>
+            <img src={coin.data.image} alt="logo" className="h2"/>
+            <span>{coin.data.name} </span>
+            <i>{coin.data.symbol.toUpperCase()}</i>
         </DialogTitle>
         <DialogContent>
             <div className="ph2">
-                <LineChart width={500} height={300} data={data}>
-                    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+                <LineChart width={500} height={300} data={timeSeries}>
+                    <Line type="monotone" dataKey="p" stroke="#8884d8" />
                     <Tooltip />
                 </LineChart>
             </div>
             <div className="flex justify-around">
                 <div>
                     <div>Price:</div>
-                    <div>${price}</div>
+                    <div>{currencyFormat(coin.data.current_price)}</div>
                 </div>
                 <div>
                     <div>24hr %:</div>
-                    <div>-4.0%</div>
+                    <div 
+                        style={
+                            {color:coin.data.price_change_percentage_24h<0?"red":"green"}
+                        }
+                    >
+                        {coin.data.price_change_percentage_24h.toFixed(1)}%
+                    </div>
                 </div>
                 <div>
                     <div>Market Cap:</div>
-                    <div>$813,785,395,943</div>
+                    <div>{currencyFormat(coin.data.market_cap)}</div>
                 </div>
                 <div>
                     <div>Volume:</div>
-                    <div>$45,129,183,512</div>
+                    <div>{currencyFormat(coin.data.total_volume)}</div>
                 </div>
             </div>
         </DialogContent>

@@ -5,7 +5,7 @@ const CardArr = ({ rec }) => {
     return(
         <div className="overflow-y-scroll" style={{height:"70vh"}}>
             {
-                rec.map((ele,i) => <CoinCard key={i} data={ rec[i] }/>)
+                rec.map((ele,i) => <CoinCard key={i} id={i+1} data={ rec[i] }/>)
             }
         </div>
         
