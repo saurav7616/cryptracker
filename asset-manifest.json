@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/cryptracker/static/css/main.063b1d8b.css",
-    "main.js": "/cryptracker/static/js/main.770a4571.js",
+    "main.css": "/cryptracker/static/css/main.75676f93.css",
+    "main.js": "/cryptracker/static/js/main.911f1ab7.js",
     "static/js/787.54f71078.chunk.js": "/cryptracker/static/js/787.54f71078.chunk.js",
     "static/media/cryptocurrency.png": "/cryptracker/static/media/cryptocurrency.ff4a5ad787a64822ad89.png",
     "index.html": "/cryptracker/index.html",
-    "main.063b1d8b.css.map": "/cryptracker/static/css/main.063b1d8b.css.map",
-    "main.770a4571.js.map": "/cryptracker/static/js/main.770a4571.js.map",
+    "main.75676f93.css.map": "/cryptracker/static/css/main.75676f93.css.map",
+    "main.911f1ab7.js.map": "/cryptracker/static/js/main.911f1ab7.js.map",
     "787.54f71078.chunk.js.map": "/cryptracker/static/js/787.54f71078.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.063b1d8b.css",
-    "static/js/main.770a4571.js"
+    "static/css/main.75676f93.css",
+    "static/js/main.911f1ab7.js"
   ]
 }
